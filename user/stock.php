@@ -1,22 +1,21 @@
-
 <?php 
 session_start();
-include 'dbconnection.php';
-if(isset($_SESSION['user_username']))
+if(!isset($_SESSION['user_username']))
 {
-  header('location:user/stock.php');
+	echo "<CENTER><H1>ACESS DENIED!!!</h1><h3>Redirecting....</h3></center>";
+	header('refresh:1,url=../../login.php');
 }
 else
 {
-  include "dbconnection.php";
-  include "pagination.php";
-    if(isset($_GET['page']))
+  //include 'components/cacheheader.php';
+  include "database/dbconnection.php";
+  include "components/pagination.php";
+  if(isset($_GET['page']))
     $page=(int)$_GET['page'];
   else
     $page=1;
   $setLimit=10;
   $pageLimit=($page*$setLimit)-$setLimit;
-  //include "user/components/cacheheader.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,23 +24,29 @@ else
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="This is stock photography website, Photographers or designers can sell their creations, images, shots, pictures, designs, art works, online in this website and even you can buy, you will be having some amount of money as a reward">
 <meta name="author" content="Sharath Raj">
-<link rel="shortcut icon" href="style/images/favicon.ico">
+<link rel="shortcut icon" href="../style/images/favicon.ico">
 <title>Pic-O-Stica a Stock photography Website | Gallery</title>
 <!-- Bootstrap core CSS -->
-<link href="style/css/bootstrap.min.css" rel="stylesheet">
-<link href="style/css/plugins.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="style/css/color/forest.css" rel="stylesheet">
+<link href="../style/css/bootstrap.min.css" rel="stylesheet">
+<link href="../style/css/plugins.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link href="../style/css/color/forest.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href="style/type/icons.css" rel="stylesheet">
+<link href="../style/type/icons.css" rel="stylesheet">
+<script src="../style/js/jquery.min.js"></script> 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script src="style/js/jquery.min.js"></script> 
+<link href="../style/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Custom Theme files -->
+<link href="../style/css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+<!--webfont-->
 <style type="text/css">
   img
   {
@@ -50,7 +55,7 @@ else
     float:left;
     display: inline-block;
   }
-    .navi {
+  .navi {
   width: 500px;
   margin: 5px;
   padding:2px 5px;
@@ -129,25 +134,25 @@ else
 </style>
 <script type="text/javascript">
 $(document).ready(function () {
-	//Disable cut copy paste
-	$('body').bind('cut copy paste', function (e) {
-		e.preventDefault();
-	});
-	
-	//Disable mouse right click
-	$("body").on("contextmenu",function(e){
-		return false;
-	});
+  //Disable cut copy paste
+  $('body').bind('cut copy paste', function (e) {
+    e.preventDefault();
+  });
+  
+  //Disable mouse right click
+  $("body").on("contextmenu",function(e){
+    return false;
+  });
 });
 </script>
 </head>
-<body ondragstart="return false;" ondrop="return false;">
+<body style="background-color: rgba(23,23,31,1);">
 <!--<div id="preloader"><div class="textload">Loading</div><div id="status"><div class="spinner"></div></div></div> -->
 <main class="body-wrapper">
   <div class="navbar">
     <div class="navbar-header">
       <div class="basic-wrapper"> 
-        <div class="navbar-brand"> <a href="index.php"><img src="#" srcset="style/images/logo.png 1x, style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="style/images/logo-dark.png 1x, style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
+        <div class="navbar-brand"> <a href="index.php"><img src="#" srcset="../style/images/logo.png 1x, ../style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="../style/images/logo-dark.png 1x, ../style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
         <a class="btn responsive-menu" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
       </div>
       <!-- /.basic-wrapper -->  
@@ -155,7 +160,7 @@ $(document).ready(function () {
     <!-- /.navbar-header -->
     <nav class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="current dropdown"><a href="index">Home</a>
+        <li class="current dropdown"><a href="index.php">Home</a>
         </li>
         <li class="dropdown"><a href="stock.php">Gallery</a>
         </li>
@@ -165,13 +170,22 @@ $(document).ready(function () {
         </li>
         <li class="dropdown"><a href="about.php">About</a>
         </li>
-        <li class="dropdown"><a href="login.php">Login | Register</a>
+        <li class="dropdown"><a href="#" class="dropdown-toggle js-activated">My Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="profile.php">View Profile</a></li>
+          <li><a href="form/updateprofile-form.php">Update Profile</a></li>
+          <li><a href="contributer.php">Sell Image</a></li>
+          <li><a href="components/myimages.php">My Images</a></li>
+          <li><a href="components/usernotify.php">My Inbox</a></li>
+          <li><a href="components/commission.php">Commission</a></li>
+          <li><a href="cart.php">Cart</a></li>
+          <li><a href="components/logout.php">Logout</a></li>  
+        </ul>
         </li>
       </ul>
       <!-- /.navbar-nav --> 
     </nav>
     <!-- /.navbar-collapse -->
-    
     <div class="social-wrapper">
       <ul class="social naked">
         <li><a href="https://www.facebook.com/picostica"><i class="icon-s-facebook"></i></a></li>
@@ -183,8 +197,8 @@ $(document).ready(function () {
     <!-- /.social-wrapper --> 
   </div>
   <!-- /.navbar -->
-  
-  <div class="post-parallax parallax inverse-wrapper parallax2" style="background-image: url(style/images/art/parallax2.jpg);">
+
+  <div class="post-parallax parallax inverse-wrapper parallax2" style="background-image: url(../style/images/art/parallax2.jpg);">
     <div class="container inner text-center">
       <div class="headline text-center">
         <h2>hello! It's Pic-O-Stica a Stock Photography Website.</h2>
@@ -204,43 +218,44 @@ $(document).ready(function () {
           while($rws=mysqli_fetch_array($result))
           {
             echo "<div class=col-md-4>";
-            //echo $rws['thumb_path'];
-            echo "<div><a href=single.php?id=".$rws['image_id']."><img src=user/thumbs/".$rws['thumb_path']." style=width:100%></a></div></div>";
+            echo "<div><a href=single.php?id=".$rws['image_id']."><img src=thumbs/".$rws['thumb_path']." style=width:100%></a></div>
+            ";
+            echo "<a target=_blank href=cart.php?imgid=$rws[image_id]&price=16&title=$rws[img_title] class='btn btn-success'>Add to Cart</a><a href=single.php?id=".$rws['image_id']." class='btn btn-info'>View Full Size</a></div>";
           }
           ?>
     </div>
     </div>
-    <div>
-      <?php 
-        echo displayPaginationBelow($setLimit,$page);
-       ?>
-    </div>
+    <?php
+    //Call the Pagination Function to load Pagination.
+    echo displayPaginationBelow($setLimit,$page);
+    ?>
     <!-- /.container --> 
   </section>
   <!-- /#conceptual -->
-  
+
   <footer class="footer inverse-wrapper">
     <div class="container inner">
       <div class="row">
+
         <div class="col-sm-6">
           <div class="widget">
             <h4 class="widget-title">Tags</h4>
             <ul class="tag-list">
-              <li><a href="user/components/search.php?s=web" class="btn">Web</a></li>
-              <li><a href="user/components/search.php?s=photography" class="btn">Photography</a></li>
-              <li><a href="user/components/search.php?s=Illustration" class="btn">Illustation</a></li>
-              <li><a href="user/components/search.php?s=fun" class="btn">Fun</a></li>
-              <li><a href="user/components/search.php?s=blog" class="btn">Blog</a></li>
-              <li><a href="user/components/search.php?s=commercial" class="btn">Commercial</a></li>
-              <li><a href="user/components/search.php?s=journal" class="btn">Journal</a></li>
-              <li><a href="user/components/search.php?s=Nature" class="btn">Nature</a></li>
-              <li><a href="user/components/search.php?s=still life" class="btn">Still Life</a></li>
+               <li><a href="components/search.php?s=web" class="btn">Web</a></li>
+              <li><a href="components/search.php?s=photography" class="btn">Photography</a></li>
+              <li><a href="components/search.php?s=Illustration" class="btn">Illustation</a></li>
+              <li><a href="components/search.php?s=fun" class="btn">Fun</a></li>
+              <li><a href="components/search.php?s=blog" class="btn">Blog</a></li>
+              <li><a href="components/search.php?s=commercial" class="btn">Commercial</a></li>
+              <li><a href="components/search.php?s=journal" class="btn">Journal</a></li>
+              <li><a href="components/search.php?s=Nature" class="btn">Nature</a></li>
+              <li><a href="components/search.php?s=still life" class="btn">Still Life</a></li>
             </ul>
           </div>
           <!-- /.widget -->
           
           <div class="widget">
-              <h4 class="widget-title">Elsewhere</h4>
+            <h4 class="widget-title">Elsewhere</h4>
             <ul class="social">
               <li><a href="https://twitter.com/PicosticaPico"><i class="icon-s-twitter"></i></a></li>
               <li><a href="https://www.facebook.com/picostica"><i class="icon-s-facebook"></i></a></li>
@@ -252,20 +267,20 @@ $(document).ready(function () {
           </div>
         </div>
         <!-- /column -->
-        
         <div class="col-sm-6">
           <div class="widget">
             <h4 class="widget-title">Search</h4>
-            <form class="searchform" method="get" action="user/components/search">
-              <input type="text" id="s2" name="s" placeholder="Search Images..">
-              <button type="submit" class="btn btn-default">Find</button>
+            <form class="searchform" method="get" action="components/search.php">
+              <input type="text" id="s2" name="s">
+              <button type="submit" class="btn btn-success">Find</button>
             </form>
           </div>
+          <!-- /.widget -->
           <!-- /.widget -->
           <div class="widget">
             <h4 class="widget-title">Get In Touch</h4>
             <div class="contact-info"> <i class="icon-location"></i>Karnataka, India <br />
-              <i class="icon-phone"></i>+91 9611092567<br />
+              <i class="icon-phone"></i>+91 9008824980<br />
               <i class="icon-mail"></i> <a href="mailto:picostica@gmail.com">picostica@gmail.com</a> </div>
           </div>
           <!-- /.widget --> 
@@ -277,28 +292,27 @@ $(document).ready(function () {
       <!-- /.row --> 
     </div>
     <!-- .container -->
-    
     <div class="sub-footer">
       <div class="container inner">
-        <p class="text-center">© <?php echo date('Y'); ?> Pic-O-Stica. All rights reserved.</p>
+        <p class="text-center">© 2017 Pic-O-Stica. All rights reserved.</p>
       </div>
       <!-- .container --> 
     </div>
     <!-- .sub-footer --> 
   </footer>
-  <!-- /footer --> 
-  
+  <!-- /footer -->  
 </main>
 <!--/.body-wrapper --> 
-<script src="style/js/jquery.min.js"></script> 
-<script src="style/js/bootstrap.min.js"></script> 
-<script src="style/js/plugins.js"></script> 
-<script src="style/js/classie.js"></script> 
-<script src="style/js/jquery.themepunch.tools.min.js"></script> 
-<script src="style/js/scripts.js"></script>
+<script src="../style/js/jquery.min.js"></script> 
+<script src="../style/js/bootstrap.min.js"></script> 
+<script src="../style/js/plugins.js"></script> 
+<script src="../style/js/classie.js"></script> 
+<script src="../style/js/jquery.themepunch.tools.min.js"></script> 
+<script src="../style/js/scripts.js"></script>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=30813178"></script>
 </body>
 </html>
+
 <?php 
-//include 'user/components/cachefooter.php';
+//include 'components/cachefooter.php';
 } ?>

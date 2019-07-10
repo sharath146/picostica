@@ -1,11 +1,14 @@
 <?php 
-if(isset($_SESSION['user_username']))
-{
-  header('location:user/pricing.php');
-}
-else
-{
-?>
+	session_start();
+	if(!isset($_SESSION['user_username']))
+	{
+		echo "<center><h1>Access Denied!!!</h1></center>";
+   		header('refresh:1,url=../index.php'); 
+	}
+	else
+	{
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +16,16 @@ else
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="This is stock photography website, Photographers or designers can sell their creations, images, shots, pictures, designs, art works, online in this website and even you can buy, you will be having some amount of money as a reward">
 <meta name="author" content="Sharath Raj">
-<link rel="shortcut icon" href="style/images/favicon.ico">
+<link rel="shortcut icon" href="../style/images/favicon.ico">
 <title>Pic-O-Stica a Stock photography Website | Pricing</title>
 <!-- Bootstrap core CSS -->
-<link href="style/css/bootstrap.min.css" rel="stylesheet">
-<link href="style/css/plugins.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="style/css/color/forest.css" rel="stylesheet">
+<link href="../style/css/bootstrap.min.css" rel="stylesheet">
+<link href="../style/css/plugins.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link href="../style/css/color/forest.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href="style/type/icons.css" rel="stylesheet">
+<link href="../style/type/icons.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -36,7 +39,7 @@ else
   <div class="navbar solid dark">
     <div class="navbar-header">
       <div class="basic-wrapper"> 
-        <div class="navbar-brand"> <a href="index.html"><img src="#" srcset="style/images/logo.png 1x, style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="style/images/logo-dark.png 1x, style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
+        <div class="navbar-brand"> <a href="../index.html"><img src="#" srcset="../style/images/logo.png 1x, ../style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="../style/images/logo-dark.png 1x, ../style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
         <a class="btn responsive-menu" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
       </div>
       <!-- /.basic-wrapper -->  
@@ -44,7 +47,7 @@ else
     <!-- /.navbar-header -->
          <nav class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-     <li class="current dropdown"><a href="index.php">Home</a>
+        <li class="current dropdown"><a href="index.php">Home</a>
         </li>
         <li class="dropdown"><a href="stock.php">Gallery</a>
         </li>
@@ -54,7 +57,18 @@ else
         </li>
         <li class="dropdown"><a href="about.php">About</a>
         </li>
-        <li class="dropdown"><a href="login.php">Login | Register</a>
+        <li class="dropdown"><a href="#" class="dropdown-toggle js-activated">My Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="profile.php">View Profile</a></li>
+          <li><a href="form/updateprofile-form.php">Update Profile</a></li>
+          <li><a href="contributer.php">Sell Image</a></li>
+          <li><a href="components/myimages.php">My Images</a></li>
+          <li><a href="components/usernotify.php">My Inbox</a></li>
+          <li><a href="components/commission.php">Commission</a></li>
+          <li><a href="cart.php">Cart</a></li>
+          <li><a href="components/logout.php">Logout</a></li>
+          
+        </ul>
         </li>
       </ul>
       <!-- /.navbar-nav --> 
@@ -102,7 +116,7 @@ else
               </table>
             </div>
             <!--/.panel-body -->
-            <div class="panel-footer"> <a href="login.php" class="btn" role="button" name="purchase1">SignUp or login</a></div>
+            <div class="panel-footer"> <a href="components/subscribe.php?type=purchase1" class="btn" role="button" name="purchase1">Subscribe</a></div>
           </div>
           <!--/.pricing --> 
         </div>
@@ -129,7 +143,7 @@ else
               </table>
             </div>
             <!--/.panel-body -->
-            <div class="panel-footer"> <a href="login.php" class="btn" role="button" name="purchase2">SIGNUP OR LOGIN</a></div>
+            <div class="panel-footer"> <a href="components/subscribe.php?type=purchase2" class="btn" role="button" name="purchase2">Subscribe</a></div>
           </div>
           <!--/.pricing --> 
         </div>
@@ -156,7 +170,7 @@ else
               </table>
             </div>
             <!--/.panel-body -->
-            <div class="panel-footer"> <a href="login.php" class="btn" role="button" name="purchase3">Signup or Login</a></div>
+            <div class="panel-footer"> <a href="components/subscribe.php?type=purchase3" class="btn" role="button" name="purchase3">Subscribe</a></div>
           </div>
           <!--/.pricing --> 
         </div>
@@ -187,15 +201,15 @@ else
           <div class="widget">
             <h4 class="widget-title">Tags</h4>
             <ul class="tag-list">
-             <li><a href="user/components/search.php?s=Web" class="btn">Web</a></li>
-              <li><a href="user/components/search.php?s=Photography" class="btn">Photography</a></li>
-              <li><a href="user/components/search.php?s=Illustration" class="btn">Illustation</a></li>
-              <li><a href="user/components/search.php?s=Fun" class="btn">Fun</a></li>
-              <li><a href="user/components/search.php?s=Blog" class="btn">Blog</a></li>
-              <li><a href="user/components/search.php?s=Commercial" class="btn">Commercial</a></li>
-              <li><a href="user/components/search.php?s=Journal" class="btn">Journal</a></li>
-              <li><a href="user/components/search.php?s=Nature" class="btn">Nature</a></li>
-              <li><a href="user/components/search.php?s=Still Life" class="btn">Still Life</a></li>
+               <li><a href="components/search.php?s=web" class="btn">Web</a></li>
+              <li><a href="components/search.php?s=photography" class="btn">Photography</a></li>
+              <li><a href="components/search.php?s=Illustration" class="btn">Illustation</a></li>
+              <li><a href="components/search.php?s=fun" class="btn">Fun</a></li>
+              <li><a href="components/search.php?s=blog" class="btn">Blog</a></li>
+              <li><a href="components/search.php?s=commercial" class="btn">Commercial</a></li>
+              <li><a href="components/search.php?s=journal" class="btn">Journal</a></li>
+              <li><a href="components/search.php?s=Nature" class="btn">Nature</a></li>
+              <li><a href="components/search.php?s=still life" class="btn">Still Life</a></li>
             </ul>
           </div>
           <!-- /.widget -->
@@ -203,11 +217,9 @@ else
           <div class="widget">
             <h4 class="widget-title">Elsewhere</h4>
             <ul class="social">
-              <li><a href="#"><i class="icon-s-rss"></i></a></li>
               <li><a href="https://www.twitter.com/PicosticaPico"><i class="icon-s-twitter"></i></a></li>
               <li><a href="https://www.facebook.com/picostica"><i class="icon-s-facebook"></i></a></li>
               <li><a href="https://in.pinterest.com/picostica/"><i class="icon-s-pinterest"></i></a></li>
-              <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
             </ul>
             <!-- .social --> 
             
@@ -218,9 +230,9 @@ else
         <div class="col-sm-6">
           <div class="widget">
             <h4 class="widget-title">Search</h4>
-            <form class="searchform" method="get" action="/user/components/search.php">
-              <input type="text" id="s" name="s" value="Search something" onfocus="this.value=''" onblur="this.value='Search something'">
-              <button type="submit" class="btn btn-default" name="search-button">Find</button>
+            <form class="searchform" method="get" action="components/search.php">
+              <input type="text" id="s2" name="s">
+              <button type="submit" class="btn btn-default">Find</button>
             </form>
           </div>
           <!-- /.widget -->
@@ -253,12 +265,12 @@ else
   
 </main>
 <!--/.body-wrapper --> 
-<script src="style/js/jquery.min.js"></script> 
-<script src="style/js/bootstrap.min.js"></script> 
-<script src="style/js/plugins.js"></script> 
-<script src="style/js/classie.js"></script> 
-<script src="style/js/jquery.themepunch.tools.min.js"></script> 
-<script src="style/js/scripts.js"></script>
+<script src="../style/js/jquery.min.js"></script> 
+<script src="../style/js/bootstrap.min.js"></script> 
+<script src="../style/js/plugins.js"></script> 
+<script src="../style/js/classie.js"></script> 
+<script src="../style/js/jquery.themepunch.tools.min.js"></script> 
+<script src="../style/js/scripts.js"></script>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=30813178"></script>
 </body>
 </html>

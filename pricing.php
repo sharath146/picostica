@@ -259,7 +259,7 @@ else
 <script src="style/js/classie.js"></script> 
 <script src="style/js/jquery.themepunch.tools.min.js"></script> 
 <script src="style/js/scripts.js"></script>
-<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=30813178"></script>
+<script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid"></script>
 </body>
 </html>
 <?php 

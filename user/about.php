@@ -1,7 +1,7 @@
 <?php session_start();
-if(isset($_SESSION['user_username']))
+if(!isset($_SESSION['user_username']))
 {
-  header('location:user/index.php');
+  echo "<center><h1>Access Denied!!!</h1></center>";
 }
 else
 {
@@ -13,24 +13,22 @@ else
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="This is stock photography website, Photographers or designers can sell their creations, images, shots, pictures, designs, art works, online in this website and even you can buy, you will be having some amount of money as a reward">
 <meta name="author" content="Sharath Raj">
-<link rel="shortcut icon" href="style/images/favicon.ico">
+<link rel="shortcut icon" href="../style/images/favicon.ico">
 <title>Pic-O-Stica a Stock photography Website | About</title>
 <!-- Bootstrap core CSS -->
-<link href="style/css/bootstrap.min.css" rel="stylesheet">
-<link href="style/css/plugins.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="style/css/color/forest.css" rel="stylesheet">
+<link href="../style/css/bootstrap.min.css" rel="stylesheet">
+<link href="../style/css/plugins.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link href="../style/css/color/forest.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href="style/type/icons.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="style/sweetalert/dist/sweetalert.css">
+<link href="../style/type/icons.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="style/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <div id="preloader"><div class="textload">Loading</div><div id="status"><div class="spinner"></div></div></div>
@@ -38,7 +36,7 @@ else
   <div class="navbar solid dark">
     <div class="navbar-header">
       <div class="basic-wrapper"> 
-        <div class="navbar-brand"> <a href="index.html"><img src="#" srcset="style/images/logo.png 1x, style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="style/images/logo-dark.png 1x, style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
+        <div class="navbar-brand"> <a href="index.html"><img src="#" srcset="../style/images/logo.png 1x, style/images/logo@2x.png 2x" class="logo-light" alt="" /><img src="#" srcset="../style/images/logo-dark.png 1x, ../style/images/logo-dark@2x.png 2x" class="logo-dark" alt="" /></a> </div>
         <a class="btn responsive-menu" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
       </div>
       <!-- /.basic-wrapper -->  
@@ -56,8 +54,17 @@ else
         </li>
         <li class="dropdown"><a href="about.php">About</a>
         </li>
-        <li class="dropdown"><a href="login.php">Login | Register</a>
-        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle js-activated">My Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="profile.php">View Profile</a></li>
+          <li><a href="form/updateprofile-form.php">Update Profile</a></li>
+          <li><a href="contributer.php">Sell Image</a></li>
+          <li><a href="components/myimages.php">My Images</a></li>
+          <li><a href="components/usernotify.php">My Inbox</a></li>
+          <li><a href="components/commission.php">Commission</a></li>
+          <li><a href="cart.php">Cart</a></li>
+          <li><a href="components/logout.php">Logout</a></li>
+        </ul>
       </ul>
       <!-- /.navbar-nav --> 
     </nav>
@@ -82,7 +89,7 @@ else
       <div class="divide20"></div>
       <div class="row">
         <div class="col-sm-5">
-          <figure><img src="style/images/art/thecompany.jpg" alt=""></figure>
+          <figure><img src="../style/images/art/thecompany.jpg" alt=""></figure>
         </div>
         <!-- /column -->
         <div class="col-sm-7">
@@ -105,18 +112,20 @@ else
   <div class="dark-wrapper">
     <div class="container inner">
       <div class="row text-center facts">
-      <img src="style/image2/abstract/8788.jpg" width="200" height="200">
-      <img src="style/image2/abstract/1713546.jpg" width="200" height="200">
-      <img src="style/image2/3D/1.jpg" width="200" height="200">
-      <img src="style/image2/background/1365461.jpg" width="200" height="200">
-      <img src="style/image2/background/1545059.jpg" width="200" height="200">
+      <img src="../style/image2/abstract/8788.jpg" width="200" height="200">
+      <img src="../style/image2/abstract/1713546.jpg" width="200" height="200">
+      <img src="../style/image2/3D/1.jpg" width="200" height="200">
+      <img src="../style/image2/background/1365461.jpg" width="200" height="200">
+      <img src="../style/image2/background/1545059.jpg" width="200" height="200">
+        <!--/column --> 
       </div>
       <!--/.row --> 
     </div>
     <!--/.container --> 
   </div>
   <!--/.dark-wrapper --> 
-            
+  
+              
               <!--/.isotope --> 
             </div>
             <!--/.items-wrapper --> 
@@ -172,7 +181,7 @@ else
           <div class="widget">
             <h4 class="widget-title">Search</h4>
             <form class="searchform" method="get" action="user/components/search.php">
-              <input type="text" id="s2" name="s" value="Search something">
+              <input type="text" id="s2" name="s" value="Search something" onfocus="this.value=''" onblur="this.value='Search something'">
               <button type="submit" class="btn btn-default">Find</button>
             </form>
           </div>
@@ -205,14 +214,13 @@ else
   
 </main>
 <!--/.body-wrapper --> 
-<script src="style/js/jquery.min.js"></script> 
-<script src="style/js/bootstrap.min.js"></script> 
-<script src="style/js/plugins.js"></script> 
-<script src="style/js/classie.js"></script> 
-<script src="style/js/jquery.themepunch.tools.min.js"></script> 
-<script src="style/js/scripts.js"></script>
+<script src="../style/js/jquery.min.js"></script> 
+<script src="../style/js/bootstrap.min.js"></script> 
+<script src="../style/js/plugins.js"></script> 
+<script src="../style/js/classie.js"></script> 
+<script src="../style/js/jquery.themepunch.tools.min.js"></script> 
+<script src="../style/js/scripts.js"></script>
 <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=30813178"></script>
 </body>
 </html>
-<?php 
-} ?>
+<?php } ?>
